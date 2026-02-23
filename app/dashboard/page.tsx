@@ -36,7 +36,6 @@ function DashboardContent() {
   const [customQuestion, setCustomQuestion] = useState('')
   const router = useRouter()
   const searchParams = useSearchParams()
-  const supabase = createClient()
 
   useEffect(() => {
     checkAuth()
@@ -51,6 +50,7 @@ function DashboardContent() {
   }, [])
 
   const checkAuth = async () => {
+    const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       router.push('/login')
@@ -61,6 +61,7 @@ function DashboardContent() {
   }
 
   const fetchConnections = async () => {
+    const supabase = createClient()
     const { data } = await supabase
       .from('connections')
       .select('*')
@@ -70,6 +71,7 @@ function DashboardContent() {
   }
 
   const fetchInsights = async () => {
+    const supabase = createClient()
     const { data } = await supabase
       .from('insights')
       .select('*')
@@ -139,6 +141,7 @@ function DashboardContent() {
   }
 
   const handleLogout = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
     router.push('/')
   }
